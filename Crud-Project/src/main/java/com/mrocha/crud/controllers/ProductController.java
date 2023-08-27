@@ -3,6 +3,7 @@ package com.mrocha.crud.controllers;
 import com.mrocha.crud.domain.product.ProductRepository;
 import com.mrocha.crud.domain.product.Product;
 import com.mrocha.crud.domain.product.RequestProduct;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,8 @@ public class ProductController {
             Product product = optionalProduct.get();
             product.setActive(false);
             return ResponseEntity.noContent().build();
+        } else {
+            throw new EntityNotFoundException();
         }
-        return ResponseEntity.noContent().build();
     }
 }
